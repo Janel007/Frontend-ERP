@@ -10,7 +10,9 @@ import Parent from "./pages/Parent.jsx";
 import Student from "./pages/Student.jsx";
 import Class from "./pages/Class.jsx";
 import Teacher from "./pages/Teacher.jsx";
-import Administrator from "./pages/Administrator.jsx";
+import User from "./pages/User.jsx";
+import Subject from "./pages/Subject.jsx";
+import Transport from "./pages/Transport.jsx";
 
 
 export default function App() {
@@ -48,10 +50,35 @@ export default function App() {
                     element: <Teacher />,
                 },
                 {
-                    path: "/create/administrator",
-                    element: <Administrator />,
+                    path: "/create/user",
+                    element: <User />,
                 },
-
+                {
+                    path: "/create/subject",
+                    element: <Subject />,
+                },
+                {
+                    path: "/create/transport",
+                    element: <Transport />,
+                },
+                /*
+                {
+                    path: "/create/user",
+                    element: <User />,
+                },
+                {
+                    path: "/create/user",
+                    element: <User />,
+                },
+                {
+                    path: "/create/user",
+                    element: <User />,
+                },
+                {
+                    path: "/create/user",
+                    element: <User />,
+                },
+                */
             ],
         },
     ]);

@@ -25,10 +25,8 @@ const schema = yup.object({
             'La classe de l\'élève est obligatoire pour continuer'),
     parent: Yup.string()
         .oneOf(['parentx', 'parenty', 'parentz'], 'Le parent de l\'élève est requis pour la suite'),
-    birthDate: Yup.date()
+    birthDate: Yup.string()
         .required('La date de naissance de l\'élève est requise'),
-    residence: Yup.string()
-        .required('L\'adresse du parent est requise'),
     matricule: Yup.string()
         .required('Le matricule est obligatoire')
         .matches(/^[A-Z]{3}[0-9]{3}$/, 'Le matricule doit être au format AAA111 (3 lettres majuscules suivies de 3 chiffres)'),
@@ -83,7 +81,7 @@ export default function Student() {
                                                             id="firstName"
                                                             {...register("firstName")}
                                                             className={`form-control border ${errors.firstName ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez l'année scolaire"
+                                                            placeholder="Spécifiez son nom"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.firstName?.message}</p>
                                                     </div>
@@ -97,7 +95,7 @@ export default function Student() {
                                                             id="lastName"
                                                             {...register("lastName")}
                                                             className={`form-control border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez le matricule de l'élève"
+                                                            placeholder="Spécifiez son prénom"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.lastName?.message}</p>
                                                     </div>
@@ -177,20 +175,6 @@ export default function Student() {
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.matricule?.message}</p>
                                                     </div>
-                                                    <div className="col-md-3">
-                                                        <label htmlFor="residence">
-                                                            Lieu de résidence :
-                                                        </label>
-                                                        <input
-                                                            type="text"
-                                                            name="residence"
-                                                            id="residence"
-                                                            {...register("residence")}
-                                                            className={`form-control border ${errors.residence ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
-                                                        />
-                                                        <p className="text-red-500 text-sm">{errors.residence?.message}</p>
-                                                    </div>
                                                     <div>
                                                         <p className="block text-gray-700 mb-1">Condition physique</p>
                                                         <div className="flex items-center">
@@ -227,14 +211,17 @@ export default function Student() {
                                                         <label htmlFor="parent">
                                                             Parent :
                                                         </label>
-                                                        <input
-                                                            type="text"
+                                                        <select
                                                             name="parent"
                                                             id="parent"
                                                             {...register("parent")}
                                                             className={`form-control border ${errors.parent ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
-                                                        />
+                                                        >
+                                                            <option value="">Sélectionnez un parent</option>
+                                                            <option value="parentx">Parent X</option>
+                                                            <option value="parenty">Parent Y</option>
+                                                            <option value="parentz">Parent Z</option>
+                                                        </select>
                                                         <p className="text-red-500 text-sm">{errors.parent?.message}</p>
                                                     </div>
                                                     <div className="col-md-3">

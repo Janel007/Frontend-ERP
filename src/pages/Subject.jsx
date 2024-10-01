@@ -11,14 +11,10 @@ import * as Yup from "yup";
 const schema = yup.object({
     name: Yup.string()
         .required('Le nom d\'une classe est obligatoire pour sa création'),
-    quantity: Yup.string()
-        .required('Spécifiez le nombre de cette salle')
-        .matches(/^(?!0)\d+$/, 'Seul les nombres naturels et différents de \'0\' sont acceptés'),
-    level: Yup.string()
-        .required('Ce champ est obligatoire')
-        .oneOf(['primary', 'secondary'],'Le niveau d\'enseignement de cette classe est requis'),
+    description: Yup.string()
+        .required("Veuillez ajouter une description de l'option."),
 }).required()
-export default function Class() {
+export default function Subject() {
     const {
         register,
         handleSubmit,
@@ -40,7 +36,7 @@ export default function Class() {
                             <div className="col-md-12">
                                 <div className="card">
                                     <div className="card-header">
-                                        <h4 className="card-title">Créer une classe</h4>
+                                        <h4 className="card-title">Ajouter une matière</h4>
                                     </div>
                                     <div className="card-content">
                                         <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +44,7 @@ export default function Class() {
                                                 <div className="row">
                                                     <div className="col-md-3">
                                                         <label htmlFor="name" >
-                                                            Nom de la classe :
+                                                            Nom de la matière :
                                                         </label>
                                                         <input
                                                             type="text"
@@ -56,38 +52,20 @@ export default function Class() {
                                                             id="name"
                                                             {...register("name")}
                                                             className={`form-control border ${errors.name ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez la classe"
+                                                            placeholder="Entrez la matière"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.name?.message}</p>
                                                     </div>
-                                                    <div className="col-md-2">
-                                                        <label htmlFor="level" className="block text-gray-700 font-medium mb-1">
-                                                            Niveau d'enseignement :
-                                                        </label>
-                                                        <select
-                                                            id="level"
-                                                            name="level"
-                                                            className={`form-control border ${errors.level ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                        >
-                                                            <option value="">Sélectionnez le niveau</option>
-                                                            <option value="primary">Maternel</option>
-                                                            <option value="secondary">Primaire</option>
-                                                        </select>
-                                                        <p className="text-red-500 text-sm">{errors.level?.message}</p>
-                                                    </div>
                                                     <div className="col-md-3">
-                                                        <label htmlFor="quantity" >
-                                                            Quantité :
+                                                        <label htmlFor="description" >
+                                                            Description :
                                                         </label>
-                                                        <input
-                                                            type="number"
-                                                            name="quantity"
-                                                            id="quantity"
-                                                            {...register("quantity")}
-                                                            className={`form-control border ${errors.quantity ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez le nombre"
-                                                        />
-                                                        <p className="text-red-500 text-sm">{errors.quantity?.message}</p>
+                                                        <textarea
+                                                            className={`form-control border ${errors.option ? 'border-red-500 ' : 'border-gray-300'} form-control`}
+                                                            placeholder="Ajouter une description"
+                                                            rows="2"
+                                                        ></textarea>
+                                                        <p className="text-red-500 text-sm">{errors.description?.message}</p>
                                                     </div>
 
                                                     <div className="col-md-2">

@@ -17,13 +17,20 @@ const schema = yup.object({
         .min(3, 'Le nom doit comporter au moins 3 caractères')
         .matches(/^[a-zA-Z ]+$/, 'Les lettres seules sont demandées')
         .required('Le nom est requis'),
-    residence: Yup.string()
-        .required('La localisation est requise'),
+    password: Yup.string()
+        .required('Le mot de passe est obligatoire')
+        .matches(/^(.{8,})$/, 'Le mot de passe doit contenir au moins 8 caractères'),
+    country: Yup.string()
+        .required('Le pays est requis'),
+    city: Yup.string()
+        .required('La ville est requise'),
+    district: Yup.string()
+        .required('Le quartier est requis'),
     phoneNumber: Yup.string()
         .min(9, 'Le numéro doit contenir 9 chiffres')
-        .max(9, 'Le numero doit contenir au maximun 9 chiffres')
+        .max(9, 'Le numéro doit contenir au maximun 9 chiffres')
         .required('Le numéro est requis')
-        .matches(/^([26]\d+)$/, 'Le numero doit commencer par 2 ou par 6 et ne doit pas contenir d\'espace'),
+        .matches(/^([26]\d+)$/, 'Le numéro doit commencer par 2 ou par 6 et ne doit pas contenir d\'espace'),
     email: Yup.string()
         .required('L\'adresse du parent est requise')
         .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'L\'adresse mail entrée n\'est pas conforme'),
@@ -35,7 +42,7 @@ const schema = yup.object({
             return value && value.size <= 3145728; // 3MB en octets
         })
 }).required()
-export default function Administrator() {
+export default function User() {
     const {
         register,
         handleSubmit,
@@ -74,7 +81,7 @@ export default function Administrator() {
                                                             id="firstName"
                                                             {...register("firstName")}
                                                             className={`form-control border ${errors.firstName ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez l'année scolaire"
+                                                            placeholder="Spécifiez le nom"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.firstName?.message}</p>
                                                     </div>
@@ -88,7 +95,7 @@ export default function Administrator() {
                                                             id="lastName"
                                                             {...register("lastName")}
                                                             className={`form-control border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez le matricule de l'élève"
+                                                            placeholder="Spécifiez le prénom"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.lastName?.message}</p>
                                                     </div>
@@ -111,6 +118,20 @@ export default function Administrator() {
                                                         <p className="text-red-500 text-sm">{errors.role?.message}</p>
                                                     </div>
                                                     <div className="col-md-3">
+                                                        <label htmlFor="password" >
+                                                            Mot de passe :
+                                                        </label>
+                                                        <input
+                                                            type="password"
+                                                            name="password"
+                                                            id="password"
+                                                            {...register("password")}
+                                                            className={`form-control border ${errors.password ? 'border-red-500 ' : 'border-gray-300'} form-control`}
+                                                            placeholder="Entrez le mot de passe"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.password?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-3">
                                                         <label htmlFor="email">
                                                             Email :
                                                         </label>
@@ -120,23 +141,51 @@ export default function Administrator() {
                                                             id="email"
                                                             {...register("email")}
                                                             className={`form-control border ${errors.email ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
+                                                            placeholder="Entrez l'email"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.email?.message}</p>
                                                     </div>
-                                                    <div className="col-md-3">
-                                                        <label htmlFor="residence">
-                                                            Lieu de résidence :
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="country" >
+                                                            Pays :
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            name="residence"
-                                                            id="residence"
-                                                            {...register("residence")}
-                                                            className={`form-control border ${errors.residence ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
+                                                            name="country"
+                                                            id="country"
+                                                            {...register("country")}
+                                                            className={`form-control border ${errors.country ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le pays"
                                                         />
-                                                        <p className="text-red-500 text-sm">{errors.residence?.message}</p>
+                                                        <p className="text-red-500 text-sm">{errors.country?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="city" >
+                                                            Ville :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="city"
+                                                            id="city"
+                                                            {...register("city")}
+                                                            className={`form-control border ${errors.city ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez la ville"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.city?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="district" >
+                                                            Quartier :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="district"
+                                                            id="district"
+                                                            {...register("district")}
+                                                            className={`form-control border ${errors.district ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le quartier"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.district?.message}</p>
                                                     </div>
                                                     <div className="col-md-3">
                                                         <label htmlFor="phoneNumber">
@@ -148,7 +197,7 @@ export default function Administrator() {
                                                             id="phoneNumber"
                                                             {...register("phoneNumber")}
                                                             className={`form-control border ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
+                                                            placeholder="Entrez le mobile"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.phoneNumber?.message}</p>
                                                     </div>

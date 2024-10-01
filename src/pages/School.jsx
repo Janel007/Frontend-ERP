@@ -13,18 +13,24 @@ const schema = yup.object({
         .required('Le nom est requis')
         .min(3, 'Le nom doit comporter au moins 3 caractères')
         .matches(/^[A-Z ]+$/, 'Les lettres doivent être majuscules'),
-    location: Yup.string()
-        .required('La localisation est requise'),
+    country: Yup.string()
+        .required('Le pays est requis'),
+    city: Yup.string()
+        .required('La ville est requise'),
+    district: Yup.string()
+        .required('Le quartier est requis'),
     phoneNumber: Yup.string()
         .required('Le numéro est requis')
         .min(9, 'Le numéro doit contenir 9 chiffres')
-        .max(9, 'Le numero doit contenir au maximun 9 chiffres')
-        .matches(/^([26]\d+)$/, 'Le numero doit commencer par 2 ou par 6 et ne doit pas contenir d\'espace'),
+        .max(9, 'Le numéro doit contenir au maximum 9 chiffres')
+        .matches(/^([26]\d+)$/, 'Le numéro doit commencer par 2 ou par 6 et ne doit pas contenir d\'espace'),
     logo: Yup.mixed()
-        .required('Le logo de l\'école est requis')
         .test('fileSize', 'La taille du fichier doit être inférieure à 3MB', value => {
             return value && value.size <= 3145728; // 3MB en octets
-        })
+        }),
+    email: Yup.string()
+        .required('L\'adresse de l\'école est requise est requise')
+        .matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'L\'adresse mail entrée n\'est pas conforme')
 }).required()
 export default function School() {
     const {
@@ -69,17 +75,46 @@ export default function School() {
                                                         <p className="text-red-500 text-sm">{errors.schoolName?.message}</p>
                                                     </div>
                                                     <div className="col-md-2">
-                                                        <label htmlFor="location" >
-                                                            Localisation :
+                                                        <label htmlFor="country" >
+                                                            Pays :
                                                         </label>
                                                         <input
                                                             type="text"
-                                                            name="location"
-                                                            id="location"
-                                                            {...register("location")}
-                                                            className={`form-control border ${errors.location ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            name="country"
+                                                            id="country"
+                                                            {...register("country")}
+                                                            className={`form-control border ${errors.country ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le pays"
                                                         />
-                                                        <p className="text-red-500 text-sm">{errors.location?.message}</p>
+                                                        <p className="text-red-500 text-sm">{errors.country?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="city" >
+                                                            Ville :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="city"
+                                                            id="city"
+                                                            {...register("city")}
+                                                            className={`form-control border ${errors.city ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez la ville"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.city?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="district" >
+                                                            Quartier :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="district"
+                                                            id="district"
+                                                            {...register("district")}
+                                                            className={`form-control border ${errors.district ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le quartier"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.district?.message}</p>
                                                     </div>
                                                     <div className="col-md-2">
                                                         <label htmlFor="phoneNumber" >
@@ -91,8 +126,23 @@ export default function School() {
                                                             id="phoneNumber"
                                                             {...register("phoneNumber")}
                                                             className={`form-control border ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Entrez le numéro"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.phoneNumber?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-3">
+                                                        <label htmlFor="email">
+                                                            Email :
+                                                        </label>
+                                                        <input
+                                                            type="email"
+                                                            name="email"
+                                                            id="email"
+                                                            {...register("email")}
+                                                            className={`form-control border ${errors.email ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Entrez l'email"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.email?.message}</p>
                                                     </div>
                                                     <div className="col-md-3">
                                                         <label htmlFor="logo">
@@ -104,7 +154,6 @@ export default function School() {
                                                             id="logo"
                                                             {...register("logo")}
                                                             className={`form-control border ${errors.logo ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.logo?.message}</p>
                                                     </div>

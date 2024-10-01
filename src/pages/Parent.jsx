@@ -17,8 +17,12 @@ const schema = yup.object({
         .required('Le nom est requis')
         .min(3, 'Le nom doit comporter au moins 3 caractères')
         .matches(/^[a-zA-Z ]+$/, 'Les lettres seules sont demandées'),
-    residence: Yup.string()
-        .required('Le numéro est requis'),
+    country: Yup.string()
+        .required('Le pays est requis'),
+    city: Yup.string()
+        .required('La ville est requise'),
+    district: Yup.string()
+        .required('Le quartier est requis'),
     phoneNumber: Yup.string()
         .min(9, 'Le numéro doit contenir 9 chiffres')
         .max(9, 'Le numero doit contenir au maximun 9 chiffres')
@@ -66,7 +70,7 @@ export default function Parent() {
                                                             id="firstName"
                                                             {...register("firstName")}
                                                             className={`form-control border ${errors.firstName ? 'border-red-500 ' : 'border-gray-300'} form-control`}
-                                                            placeholder="Spécifiez l'année scolaire"
+                                                            placeholder="Entrez le nom du parent"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.firstName?.message}</p>
                                                     </div>
@@ -80,6 +84,7 @@ export default function Parent() {
                                                             id="lastName"
                                                             {...register("lastName")}
                                                             className={`form-control border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Entrez le prénom du parent"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.lastName?.message}</p>
                                                     </div>
@@ -107,22 +112,51 @@ export default function Parent() {
                                                             id="phoneNumber"
                                                             {...register("phoneNumber")}
                                                             className={`form-control border ${errors.phoneNumber ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Entrez son numéro mobile"
                                                         />
                                                         <p className="text-red-500 text-sm">{errors.phoneNumber?.message}</p>
                                                     </div>
-                                                    <div className="col-md-3">
-                                                        <label htmlFor="email">
-                                                            Lieu de résidence :
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="country" >
+                                                            Pays :
                                                         </label>
                                                         <input
-                                                            type="email"
-                                                            name="email"
-                                                            id="email"
-                                                            {...register("email")}
-                                                            className={`form-control border ${errors.email ? 'border-red-500' : 'border-gray-300'} form-control`}
-                                                            placeholder="Entrez le budget"
+                                                            type="text"
+                                                            name="country"
+                                                            id="country"
+                                                            {...register("country")}
+                                                            className={`form-control border ${errors.country ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le pays"
                                                         />
-                                                        <p className="text-red-500 text-sm">{errors.email?.message}</p>
+                                                        <p className="text-red-500 text-sm">{errors.country?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="city" >
+                                                            Ville :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="city"
+                                                            id="city"
+                                                            {...register("city")}
+                                                            className={`form-control border ${errors.city ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez la ville"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.city?.message}</p>
+                                                    </div>
+                                                    <div className="col-md-2">
+                                                        <label htmlFor="district" >
+                                                            Quartier :
+                                                        </label>
+                                                        <input
+                                                            type="text"
+                                                            name="district"
+                                                            id="district"
+                                                            {...register("district")}
+                                                            className={`form-control border ${errors.district ? 'border-red-500' : 'border-gray-300'} form-control`}
+                                                            placeholder="Spécifiez le quartier"
+                                                        />
+                                                        <p className="text-red-500 text-sm">{errors.district?.message}</p>
                                                     </div>
                                                     <div className="col-md-2">
                                                         <button type="submit" className="btn btn-primary btn-fill btn-wd my-10">Enregistrer</button>
